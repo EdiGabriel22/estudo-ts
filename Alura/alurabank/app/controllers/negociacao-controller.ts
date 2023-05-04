@@ -33,7 +33,8 @@ export class NegociacaoController {
     }
 
     private ehDiaUtil(data: Date) {
-        return data.getDay() > DiaDaSemana.DOMINGO && data.getDay() < DiaDaSemana.SABADO
+        return data.getDay() > DiaDaSemana.DOMINGO 
+            && data.getDay() < DiaDaSemana.SABADO
     }
 
     private criaNegociacao(): Negociacao {
