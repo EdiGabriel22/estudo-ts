@@ -1,5 +1,6 @@
-import { domInject } from '../decorators/dom-injector.js';
-import { logarTempoDeExecução } from '../decorators/logar-tempo-de-execucao.js';
+import { domInjector } from '../decorators/dom-injector.js';
+import { inspect } from '../decorators/inspect.js';
+import { logarTempoDeExecucao } from '../decorators/logar-tempo-de-execucao.js';
 import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
@@ -7,15 +8,12 @@ import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
 
 export class NegociacaoController {
-    @domInject("#data")
+    @domInjector('#data')
     private inputData: HTMLInputElement;
-
-    @domInject("#quantidade")
+    @domInjector('#quantidade')
     private inputQuantidade: HTMLInputElement;
-
-    @domInject("#valor")
+    @domInjector('#valor')
     private inputValor: HTMLInputElement;
-
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
@@ -24,7 +22,8 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
-    @logarTempoDeExecução()
+    @inspect
+    @logarTempoDeExecucao()
     public adiciona(): void {
         /*
             Zé, você já viu isso?
@@ -46,6 +45,9 @@ export class NegociacaoController {
         this.atualizaView();
     }
 
+    importarDados(): void{
+        fetch('http://localhost:8080/dados')
+    }
     private ehDiaUtil(data: Date) {
         return data.getDay() > DiasDaSemana.DOMINGO 
             && data.getDay() < DiasDaSemana.SABADO;
