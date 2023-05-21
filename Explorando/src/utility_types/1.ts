@@ -10,4 +10,10 @@ const todo: Partial<Todo> = {
     done: false
 }
 
-console.log(todo)
+function updateTodo(updatedTodo: Omit<Todo, "priority" | "description">) {
+    return { ...todo, ...updatedTodo }
+}
+
+const updatedTodo = {
+    done: true
+}
